@@ -1,22 +1,24 @@
-# 📚 LLM-RAG Persian - فارسی بدون نیاز به OpenAI
+# 🤖 Persian RAG-based Question Answering (بدون نیاز به API خارجی)
 
-پروژه‌ای سبک برای پاسخ‌گویی به پرسش‌های کاربران بر اساس اسناد شخصی، بدون نیاز به کلید API از OpenAI، با پشتیبانی از زبان فارسی.  
-از معماری RAG (Retrieval-Augmented Generation) به‌صورت ساده و بدون مدل‌های بزرگ استفاده شده است.
+این پروژه یک سامانه پرسش‌وپاسخ هوشمند فارسی است که از معماری RAG (بازیابی و تولید) استفاده می‌کند تا بر اساس فایل‌های متنی شخصی شما پاسخ‌های دقیق تولید کند. بدون نیاز به کلید API یا اتصال به OpenAI!
 
-## 🧠 تکنولوژی‌های استفاده‌شده
+---
 
-- [FastAPI](https://fastapi.tiangolo.com/) - برای ساخت REST API
-- [LlamaIndex](https://github.com/jerryjliu/llama_index) - برای ایندکس‌گذاری و بازیابی
-- [HuggingFace Transformers](https://huggingface.co/transformers/) - برای مدل پرسش‌پاسخ (Extractive QA)
-- [SentenceTransformers](https://www.sbert.net/) - برای تولید بردار متون
-- مدل‌ها:
-  - 🔍 `all-MiniLM-L6-v2` (برای Embedding)
-  - ❓ `distilbert-base-cased-distilled-squad` (برای پرسش‌پاسخ)
+## ✨ ویژگی‌ها
 
-## 📦 نصب و اجرا
+- 🔍 جستجو در میان فایل‌های متنی فارسی (txt, md, و غیره)
+- 🧠 استفاده از مدل تولید پاسخ به کمک [`google/flan-t5-small`]
+- 🧭 بازیابی دانش با استفاده از [`sentence-transformers/all-MiniLM-L6-v2`]
+- ✅ اجرا به‌صورت محلی و بدون اینترنت (پس از دانلود مدل‌ها)
+- 📂 بدون وابستگی به API یا کلید OpenAI
+- 🇮🇷 پشتیبانی مناسب از زبان فارسی (با prompt مهندسی‌شده)
 
-### 1. کلون کردن پروژه
+---
+
+## 🛠️ نصب و راه‌اندازی
+
+### 1. کلون کردن مخزن
 
 ```bash
-git clone https://github.com/username/llm-rag-persian.git
-cd llm-rag-persian
+git clone https://github.com/yourusername/persian-rag-qa.git
+cd persian-rag-qa
