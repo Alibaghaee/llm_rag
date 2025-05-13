@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard] # [standard] برای پشتیبانی از websockets و ... اگر نیاز باشد
+pydantic
+llama-index==0.9.13
+sentence-transformers
+transformers
+torch
+# accelerate # ممکن است برای برخی مدل‌های بزرگتر یا بهینه‌سازی‌ها مفید باشد
+python-dotenv # اگر می‌خواهید متغیرهای محیطی را از فایل .env بخوانید

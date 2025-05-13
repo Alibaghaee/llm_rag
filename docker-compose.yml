@@ -1,0 +1,25 @@
+services:
+  rag-api:
+    build:
+      context: ./rag_app
+      # dockerfile: Dockerfile # اگر نام دیگری داشت
+    container_name: rag-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./rag_app:/rag_app # مانت کردن کل پوشه برنامه
+      # می‌توانید پوشه data را به صورت جداگانه مانت کنید اگر خارج از rag_app است
+      # - ./persian_data_files:/rag_app/data # مثال
+    working_dir: /rag_app
+    # اضافه کردن env_file برای مدیریت متغیرهای محیطی اگر نیاز باشد
+    # env_file:
+    #   - ./.env
+    # برای استفاده از GPU در Docker (نیاز به nvidia-docker runtime):
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+    command: ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000", "--reload"] # --reload برای توسعه

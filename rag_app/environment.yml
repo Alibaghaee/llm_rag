@@ -1,0 +1,15 @@
+name: rag_env
+channels:
+  - defaults
+  - conda-forge
+
+dependencies:
+  - python=3.10
+  - fastapi
+  - uvicorn
+  - requests
+  - pip
+  - pip:
+      - llama-index==0.9.13
+      - sentence-transformers
+      - pydantic
