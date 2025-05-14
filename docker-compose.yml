@@ -11,6 +11,31 @@ services:
       # می‌توانید پوشه data را به صورت جداگانه مانت کنید اگر خارج از rag_app است
       # - ./persian_data_files:/rag_app/data # مثال
     working_dir: /rag_app
+    # تنظیمات CPU
+    cpus: 6.0  # اجازه استفاده از 6 هسته از 8 هسته موجود
+    cpu_shares: 2048  # اولویت بالا برای پردازش
+    environment:
+      - OMP_NUM_THREADS=4  # تعداد thread ها برابر با تعداد هسته‌های فیزیکی
+      - MKL_NUM_THREADS=4  # تنظیم برای Intel MKL
+      - NUMEXPR_NUM_THREADS=4  # تنظیم برای NumExpr
+      - VECLIB_MAXIMUM_THREADS=4  # تنظیم برای VecLib
+      - OPENBLAS_NUM_THREADS=4  # تنظیم برای OpenBLAS
+      # تنظیمات اضافی برای بهینه‌سازی Intel CPU
+      - MKL_DYNAMIC=FALSE  # غیرفعال کردن تخصیص پویا برای کنترل بهتر
+      - OMP_DYNAMIC=FALSE
+      - OMP_PROC_BIND=SPREAD  # پخش thread ها روی هسته‌های مختلف
+      - OMP_PLACES=CORES  # اختصاص thread ها به هسته‌های فیزیکی
+    deploy:
+      resources:
+        limits:
+          cpus: '6.0'  # محدودیت استفاده از CPU
+        reservations:
+          cpus: '2.0'  # حداقل 2 هسته رزرو شده
+    ulimits:
+      nproc: 65535  # افزایش محدودیت تعداد پردازش‌ها
+      nofile:
+        soft: 65535  # افزایش محدودیت تعداد فایل‌های باز
+        hard: 65535
     # اضافه کردن env_file برای مدیریت متغیرهای محیطی اگر نیاز باشد
     # env_file:
     #   - ./.env
@@ -22,4 +47,4 @@ services:
     #         - driver: nvidia
     #           count: 1
     #           capabilities: [gpu]
-    command: ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000", "--reload"] # --reload برای توسعه
+    command: ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4", "--reload"]  # تعداد workers برابر با تعداد هسته‌های فیزیکی
