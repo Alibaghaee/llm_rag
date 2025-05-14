@@ -20,7 +20,7 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Using device: {DEVICE}")
 
 EMBED_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
-GENERATION_MODEL_NAME = "google/flan-t5-small"
+GENERATION_MODEL_NAME = "google/flan-t5-base"
 DATA_DIR = Path(__file__).parent / "data"
 
 # --- بارگذاری مدل‌ها و ساخت ایندکس (در زمان شروع برنامه) ---
@@ -59,7 +59,7 @@ if embed_model:
             else:
                 index = VectorStoreIndex.from_documents(documents, service_context=service_context)
                 query_engine = index.as_query_engine(
-                    similarity_top_k=3
+                    similarity_top_k=5
                 )
                 print("RAG index built successfully.")
         except Exception as e:
@@ -98,15 +98,15 @@ async def ask(payload: QueryRequest):
     print(f"Retrieved context: \n{context[:500]}...")
 
     prompt = (
-        "شما یک دستیار هوشمند هستید که فقط بر اساس متن ارائه شده در زیر پاسخ می‌دهید. "
-        "به هیچ وجه از دانش عمومی خود استفاده نکنید و فقط به اطلاعات موجود در متن اتکا کنید.\n\n"
-        "متن مرجع:\n"
+        "Answer the following question based ONLY on the provided context. "
+        "If the information is not in the context, say 'I cannot find this information in the provided context'. "
+        "Be precise and specific.\n\n"
+        "Context:\n"
         "------------\n"
         f"{context}\n"
         "------------\n\n"
-        "با توجه به متن مرجع بالا، به سوال زیر پاسخ دقیق و کامل بدهید:\n"
-        "سؤال: " + payload.question + "\n"
-        "پاسخ:"
+        "Question: " + payload.question + "\n"
+        "Answer:"
     )
     print(f"Constructed prompt for generation model: \n{prompt}")
 
@@ -115,13 +115,11 @@ async def ask(payload: QueryRequest):
     with torch.no_grad():
         outputs = model.generate(
             **inputs,
-            max_new_tokens=200,
-            num_beams=5,
-            early_stopping=True,
-            no_repeat_ngram_size=2,
-            temperature=0.7,
-            top_k=50,
-            top_p=0.95
+            max_new_tokens=100,
+            num_beams=3,
+            temperature=0.3,
+            top_p=0.9,
+            no_repeat_ngram_size=2
         )
     answer = tokenizer.decode(outputs[0], skip_special_tokens=True)
 

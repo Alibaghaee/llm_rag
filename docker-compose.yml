@@ -1,9 +1,9 @@
 services:
-  rag-api:
+  rag-api-v2:
     build:
       context: ./rag_app
       # dockerfile: Dockerfile # اگر نام دیگری داشت
-    container_name: rag-api
+    container_name: rag-api-v2
     ports:
       - "8000:8000"
     volumes:
