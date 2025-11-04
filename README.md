@@ -20,5 +20,5 @@
 ### 1. کلون کردن مخزن
 
 ```bash
-git clone https://github.com/aliRahrayan/llm_rag
+git clone https://github.com/aliRahrayan/llm_rag.git
 cd persian-rag-qa
