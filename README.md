@@ -1,24 +1,23 @@
-# 🤖 Persian RAG-based Question Answering (بدون نیاز به API خارجی)
+🤖 Persian RAG-based Question Answering (No External API Required)
 
-این پروژه یک سامانه پرسش‌وپاسخ هوشمند فارسی است که از معماری RAG (بازیابی و تولید) استفاده می‌کند تا بر اساس فایل‌های متنی شخصی شما پاسخ‌های دقیق تولید کند. بدون نیاز به کلید API یا اتصال به OpenAI!
+This project is an intelligent Persian question-answering system based on the RAG (Retrieval-Augmented Generation) architecture. It generates accurate answers based on your personal text files, without requiring an API key or a connection to OpenAI!
 
----
+⸻
 
-## ✨ ویژگی‌ها
+✨ Features
 
-- 🔍 جستجو در میان فایل‌های متنی فارسی (txt, md, و غیره)
-- 🧠 استفاده از مدل تولید پاسخ به کمک [`google/flan-t5-small`]
-- 🧭 بازیابی دانش با استفاده از [`sentence-transformers/all-MiniLM-L6-v2`]
-- ✅ اجرا به‌صورت محلی و بدون اینترنت (پس از دانلود مدل‌ها)
-- 📂 بدون وابستگی به API یا کلید OpenAI
-- 🇮🇷 پشتیبانی مناسب از زبان فارسی (با prompt مهندسی‌شده)
+* 🔍 Search through Persian text files (txt, md, etc.)
+* 🧠 Uses [google/flan-t5-small] as the answer generation model
+* 🧭 Retrieves relevant knowledge using [sentence-transformers/all-MiniLM-L6-v2]
+* ✅ Runs locally and offline (after downloading the models)
+* 📂 No dependency on external APIs or OpenAI API keys
+* 🇮🇷 Good support for the Persian language (using an engineered prompt)
 
----
+⸻
 
-## 🛠️ نصب و راه‌اندازی
+🛠️ Installation and Setup
 
-### 1. کلون کردن مخزن
+1. Clone the Repository
 
-```bash
 git clone https://github.com/aliRahrayan/llm_rag.git
 cd persian-rag-qa
